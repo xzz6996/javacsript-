@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>this全面解析</title>
+</head>
+<body>
+        http://www.ruanyifeng.com/blog/2010/04/using_this_keyword_in_javascript.html
+
+</body>
+<script> 
+    {   //1 纯粹的函数调用  this代表全局环境
+        var x=10;
+        function aa(){
+            console.log(this.x);   //this 在函数体内部,指代函数当前的运行环境
+        }
+        aa();
+    }
+    {  //2 作为对象方法的调用 this代表这个对象
+        var x=100000;
+        var f=function(){
+            console.log(this.x);
+        }
+        var obj={
+            f:f,
+            x:6
+        }
+        obj.f();
+    }    
+    { //3 作为构造函数调用
+        function A(){
+            this.x=5;
+        }    
+        var a=new A();
+        console.log(a.x); //5
+    }
+    { //4 apply 调用
+        var x=515151;
+        function a(){
+            console.log(this.x)
+        }
+        var obj={
+            a:a,
+            x:2
+        }
+        console.log(obj.a()); //2
+        console.log(obj.a.apply()); //515151
+    }
+</script>
+</html>

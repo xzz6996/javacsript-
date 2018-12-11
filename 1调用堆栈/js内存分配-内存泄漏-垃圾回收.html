@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title></title>
+</head>
+<body>
+    详细可以看https://www.jb51.net/article/135920.htm
+    栈  是后进先出的一种的数据结构
+    堆  是基于散列算法的数据结构
+
+    javascript基本数据类型 String Number Boolean Undefined Null 都是存储在栈中
+    javascript引用数据类型 Object Array 都是存储在堆中
+
+    复制 
+        对于基本数据类型来说，如果进行复制，就是为新变量在栈中重新分配一个内存
+        var a=15,b=a; 
+        a=16;
+        console.log(b); //15
+
+        对于引用数据类型来说，复制，只是为新的变量在栈中分配的一个引用地址而已，这个值仅仅是一个地址而已。也就是复制出来的的变量和原有的变量都是指向内存中的同一个对象。
+        var a=[1,2,3];
+        var b=a;
+        a[0]=5;
+        console.log(a)// [5,2,3]
+        console.log(b)// [5,2,3]
+     关于内存泄漏和垃圾回收  https://www.jb51.net/article/135920.html   
+     
+</body>
+<script>
+
+</script>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    call stack 调用堆栈
+    JavaScript 是一种单线程编程语言，这意味着它只有一个 Call Stack 。因此，它一次仅能做一件事。
+    Call Stack 是一个数据结构，它基本上记录了我们在程序中的所处的位置。如果我们进入一个函数，我们把它放在堆栈的顶部。如果我们从一个函数中返回，我们弹出堆栈的顶部。这是所有的堆栈可以做的东西。
+    当有一个函数被调用的时候, 它就被压入到堆栈的顶部, 该函数运行完成之后, 又会从堆栈的顶部被移除.
+    堆栈的数据结构就是后进先出, 以 LIFO (last in, first out) 著称。
+
+</body>
+<script>
+    {
+        function multiply(x, y) {
+             return x * y;
+        }
+        function printSquare(x) {
+            var s = multiply(x, x);
+            console.log(s);
+        }
+        printSquare(5);
+    }
+    //当引擎执行这个代码的时候,call stack会被清空。之后,执行过程如1.png所示  
+
+
+    {
+        //Blowing the stack”—当达到最大调用堆栈大小时，会发生这种情况。这可能会很容易发生，特别是如果你使用递归
+        function foo(){
+            foo()
+        }
+        //foo();
+    }
+</script>
+</html>
