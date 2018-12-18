@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>6高阶函数</title>
+</head>
+<body>
+    Higher-order function
+    满足条件之一就是高阶函数  1 函数可以当作参数去传递 2 函数可以当作返回值输出
+
+    数组中常见的高阶函数有 map reduce filter
+</body>
+<script>
+    'use strict';
+    function foo(a,b,f){
+      return  f(a)+f(b);
+    }
+    var x=foo(5,6,Math.abs);
+    console.log(x);
+</script>
+</html>

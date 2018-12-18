@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+    {  
+        for(var i=0;i<10;i++){
+            setTimeout(function(){ console.log(i)})  //10个10
+        }
+    }
+    {
+        for(var i=0;i<10;i++){
+            setTimeout((function(){
+                console.log(i)  // 0 1 2 3 4 5 6 7 8 9 
+            }(i),1000))
+        }
+        for(let i=0;i<10;i++){
+            setTimeout(function(){ console.log(i)})  // 0 1 2 3 4 5 6 7 8 9 
+        }
+    }
+    
+    {   //每隔一秒输出一个数 
+        for(let i=0;i<10;i++){
+            setTimeout(function(){ console.log(i)},(i+1)*1000)  
+        }
+        for(var i=0;i<10;i++){
+            (function(i){
+                setTimeout(function(){console.log(i)},(i+1)*1000)
+            })(i) 
+        }  //立即执行函数+setTimeout
+
+        //设立一些时间间隔相同的连续的setTimeout()将导致所有延时处理程序同时被调用
+    }
+</script>
+</html>

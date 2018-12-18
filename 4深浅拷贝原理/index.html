@@ -16,13 +16,13 @@
         for(let key in data){
             if(data.hasOwnProperty(key)){
                 if(data[key]&&typeof data[key]==='object'){
-                    targetObj[i]=depp(data[key]);
+                    deep(data[key])
                 }else{
-                    deep(targetObj[i]);
+                    targetObj[key]=data[key];
                 }
             }
         }
-
+        return targetObj;
     }
 
 </script>
