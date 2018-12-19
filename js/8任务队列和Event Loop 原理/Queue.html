@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>队列</title>
+</head>
+<body>
+    队列是一种先进先出的结构    
+    队列用在很多地方，比如提交操作系统执行一系列的进程，打印任务池等，一些仿真系统使用队列来模拟银行或者超时里排队的顾客。
+    基本队列的方法 包含 1 (入队)enqueue 向队列尾部插入元素 2(出队) dequeue 从队列头部删除元素 3 front 查看队列头部的元素 4 isEmpty 查看队列是否为空 5 size 查看队列的长度 6 print 查看队列
+ </body>
+<script>
+{   function queue(){
+        var data=[]; //初始化队列 用数组来实现
+        // 入队 向队列的尾部插入一个元素
+        this.enqueue=function (element){
+            data.push(element)
+        }
+        // 出队 从队列的头部删除一个元素 并返回
+        this.dequeue=function(){
+            return data.shift()
+        }
+        // 返回队首元素
+        this.front=function(){
+            return data[0]
+        }    
+        // 查看队列是否为空 返回true/false
+        this.isEmpty=function(){
+            return data.length===0
+        }
+        this.size=function(){
+            return data.length
+        }
+        // 查看队列
+        this.print=function(){
+            return data.toString();
+        }
+    }
+}
+// 优先队列
+{
+    function queue(){
+        var data=[];
+        // 需要插入队列的元素 包括值和优先级
+        function QueueElemnt(element,prioroty){
+            this.element=element;
+            this.prioroty=prioroty;
+        }
+        this.enqueue=function(element,prioroty){
+            var queueElemnt=new QueueElemnt();//需要插入队列的元素
+            if(this.isEmpty()){
+                //当队列为空 直接插入 
+                data.push(queueElemnt)
+            }else{
+//当队列不为空时，遍历队列中的元素，当需要添加的元素的优先级小于（队列中）当前元素的优先级，就把该元素插入到当前元素之前
+                var added=false;
+                for(var i=0;i<data.length;i++){
+                    if(queueElemnt.prioroty<data[i].prioroty){
+                        data.splice(i,0,queueElemnt);
+                        added=true;
+                        break;
+                    }
+                }
+                //当插入的元素 比队列中的所有元素的优先级都高，就把该元素插入到末尾
+                if(!added){
+                    data.push(queueElemnt)
+                }    
+
+            }
+        }
+        this.isEmpty=function(){
+            return data.length===0
+        }
+
+    }
+
+}
+</script>
+</html>

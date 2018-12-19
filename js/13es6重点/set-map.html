@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>数据结构的横向对比</title>
+</head>
+<body>
+        优先使用Map和Set
+
+        能使用Map就不使用数组
+        
+        要求数据唯一性，考虑使用Set，放弃使用Object,数组
+
+
+        以下是Set支持的所有操作：
+
+        1 new Set：创建一个新的、空的Set。
+        2 new Set(iterable)：从任何可遍历数据中提取元素，构造出一个新的集合。
+        3 set.size：获取集合的大小，即其中元素的个数。
+        4 set.has(value)：判定集合中是否含有指定元素，返回一个布尔值。
+        5 set.add(value)：添加元素。如果与已有重复，则不产生效果。
+        6 set.delete(value)：删除元素。如果并不存在，则不产生效果。.add()和.delete()都会返回集合自身，所以我们可以用链式语法。
+        7 setSymbol.iterator：返回一个新的遍历整个集合的迭代器。一般这个方法不会被直接调用，因为实际上就是它使集合能够被遍历，也就是说，我们可以直接写for (v of set) {…}等等。
+        8 set.forEach(f)：直接用代码来解释好了，它就像是for (let value of set) { f(value, value, set); }的简写，类似于数组的.forEach()方法。
+        9 set.clear()：清空集合。
+        10 set.keys()、set.values()和set.entries()返回各种迭代器
+
+        以下是Map支持的所有操作：
+
+        1 new Map：返回一个新的、空的Map。
+        2 new Map(pairs)：根据所含元素形如[key, value]的数组pairs来创建一个新的Map。这里提供的pairs可以是一个已有的Map 对象，可以是一个由二元数组组成的数组，也可以是逐个生成二元数组的一个生成器，等等。
+        3 map.size：返回Map中项目的个数。
+        4 map.has(key)：测试一个键名是否存在，类似key in obj。
+        5 map.get(key)：返回一个键名对应的值，若键名不存在则返回undefined，类似obj[key]。
+        6 map.set(key, value)：添加一对新的键值对，如果键名已存在就覆盖。
+        7 map.delete(key)：按键名删除一项，类似delete obj[key]。
+        8 map.clear()：清空Map。
+        9 mapSymbol.iterator：返回遍历所有项的迭代器，每项用一个键和值组成的二元数组表示。
+        10 map.forEach(f) 类似for (let [key, value] of map) { f(value, key, map); }。这里诡异的参数顺序，和Set中一样，是对应着Array.prototype.forEach()。
+        11 map.keys()：返回遍历所有键的迭代器。
+        12 map.values()：返回遍历所有值的迭代器。
+        13 map.entries()：返回遍历所有项的迭代器，就像mapSymbol.iterator。实际上，它们就是同一个方法，不同名字。
+</body>
+<script>
+//map 对比 array
+    let mapArray=new Map()
+    let array=[]
+//增
+    mapArray.set('t',1)
+    array.push({t:1})
+//删
+    mapArray.delete('t')
+    let index=array.findIndex('t');array.splice(index,1); //找到t的索引值利用splice删除
+//改
+    map.set('t',2)
+    array.forEach(item=>item.t?item.t=2:'')
+//查
+    mapArray.has('t')
+    array.find(item=>item.t)
+
+//set 对比 array
+    let setArray=new Set()
+    let array=[];
+//增
+    setArray.add({t:1})
+    array.push({t:1})
+//删
+    setArray.delete('t')
+    let index=array.findIndex('t');array.splice(index,1)
+//改
+    setArray.forEach(item=>item.t?item.t=2:"")
+    array.forEach(item=>item.t?item=2:"")
+//查
+    setArray.has('t')
+    array.find('t')
+
+
+
+
+//map set object
+    let mapObject=new Map()
+    let setObject=new Set()
+    let object={}
+    let item={t:1}
+//增
+    mapObject.set('t',1)
+    setObject.add('t',1)
+    object.t=1
+//删    
+    mapObject.delete('t')
+    setObject.delete(item)
+    delete object.t
+//改
+    map.set('t',2)
+    setObject.forEach(item=>item.t?item.t=2:"")
+    object.t=2;
+//查
+    map.has('t')
+    set.has(item)
+    console.log(object.t)
+
+</script>
+</html>

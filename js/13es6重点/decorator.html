@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>decorator</title>
+</head>
+<body>
+函数的
+修饰器  
+类的行为
+
+core-decorators.js是一个第三方模块，提供了几个常见的修饰器，通过它可以更好地理解修饰器。
+</body>
+<script>
+    
+{
+    let readonly=function(taget,name,descriptor){
+        descriptor.writable=false;
+        return descriptor
+    }
+    class Test{
+        @readonly
+        time(){
+            return '2017-03-15'
+        }
+    }
+    let test=Test()
+    // test.time()=function(){
+    //     console.log(1)
+    // } 报错 不可修改
+}
+
+// 广告埋点
+{
+
+}
+
+
+
+</script>
+</html>

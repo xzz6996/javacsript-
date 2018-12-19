@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title></title>
+</head>
+<body>
+    1谈一谈JavaScript作用域链
+当执行一段JavaScript代码（全局代码或函数）时，JavaScript引擎会为其创建一个作用域又称为执行上下文（Execution Context），在页面加载后会首先创建一个全局的作用域，然后每执行一个函数，会建立一个对应的作用域，从而形成了一条作用域链。每个作用域都有一条对应的作用域链，链头是全局作用域，链尾是当前函数作用域。
+
+作用域链的作用是用于解析标识符，当函数被创建时（不是执行），会将this、arguments、命名参数和该函数中的所有局部变量添加到该当前作用域中，当JavaScript需要查找变量X的时候（这个过程称为变量解析），它首先会从作用域链中的链尾也就是当前作用域进行查找是否有X属性，如果没有找到就顺着作用域链继续查找，直到查找到链头，也就是全局作用域链，仍未找到该变量的话，就认为这段代码的作用域链上不存在x变量，并抛出一个引用错误（ReferenceError）的异常。
+
+2如何理解JavaScript原型链
+JavaScript中的每个对象都有一个prototype属性，我们称之为原型，而原型的值也是一个对象，因此它也有自己的原型，这样就串联起来了一条原型链，原型链的链头是object,它的prototype比较特殊，值为null。
+
+原型链的作用是用于对象继承，函数A的原型属性(prototype property)是一个对象，当这个函数被用作构造函数来创建实例时，该函数的原型属性将被作为原型赋值给所有对象实例，比如我们新建一个数组，数组的方法便从数组的原型上继承而来。
+
+当访问对象的一个属性时, 首先查找对象本身, 找到则返回; 若未找到, 则继续查找其原型对象的属性(如果还找不到实际上还会沿着原型链向上查找, 直至到根). 只要没有被覆盖的话, 对象原型的属性就能在所有的实例中找到，若整个原型链未找到则返回undefined；
+3 JavaScript变量在声明之前已经可用，JavaScript的这个特性被非正式的称为声明提前（hoisting），即JavaScript函数中声明的所有变量（但不涉及赋值）都被“提前”至函数的顶部。
+    var scope="dddd";
+    function aa(){
+        console.log(scope)
+        var scope="ssss";
+    }
+    var scope="dddd";
+    function aa(){
+        var scope;
+        console.log(scope)
+        scope="ssss";
+    }
+    4 闭包 闭包就是能够读取其他函数内部变量的函数
+     好处 可以读取外部函数的变量 可以保存变量
+
+     　var name = "The Window";
+
+     　　var object = {
+     　　　　name : "My Object",
+     
+     　　　　getNameFunc : function(){
+     　　　　　　return function(){
+     　　　　　　　　return this.name;
+     　　　　　　};
+     
+     　　　　}
+     
+     　　};
+     
+     　　alert(object.getNameFunc()());
+
+
+     var name = "The Window";
+
+　　var object = {
+　　　　name : "My Object",
+
+　　　　getNameFunc : function(){
+　　　　　　var that = this;
+　　　　　　return function(){
+　　　　　　　　return that.name;
+　　　　　　};
+
+　　　　}
+
+　　};
+
+　　alert(object.getNameFunc()());
+
+6 new构建对象的本质
+    创建一个新的对象，这个对象的类型是Object。设置这个对象的内部 可访问性，和构造函数。执行构造函数。返回新创建的对象。
+
+7 地址栏
+
+
+8怎样添加、移除、移动、复制、创建和查找节点？
+ createDocumentFragment() 创建一个dom片段
+ createElement()    创建一个具体的元素
+ createText()   创建一个文本
+
+ appendChild removeChild replaceChild insertBefore  
+ getElementByTagName() getElementById() getElementByName()
+
+9跨域 url的协议 端口 域名不同
+解决办法 1nginx代理 2 CORS 3jsonp
+10  同步 异步
+同步是阻塞模式，异步是非阻塞模式。
+同步就是指一个进程在执行某个请求的时候，若该请求需要一段时间才能返回信息，那么这个进程将会一直等待下去，直到收到返回信息才继续执行下去；
+异步是指进程不需要一直等下去，而是继续执行下面的操作，不管其他进程的状态。当有消息返回时系统会通知进程进行处理，这样可以提高执行的效率
+11 优雅降级 渐进增强
+优雅降级：Web站点在所有新式浏览器中都能正常工作，如果用户使用的是老式浏览器，则代码会检查以确认它们是否能正常工作。由于IE独特的盒模型布局问题，针对不同版本的IE的hack实践过优雅降级了,为那些无法支持功能的浏览器增加候选方案，使之在旧式浏览器上以某种形式降级体验却不至于完全失效.
+渐进增强：从被所有浏览器支持的基本功能开始，逐步地添加那些只有新式浏览器才支持的功能,向页面增加无害于基础浏览器的额外样式和功能的。当浏览器支持时，它们会自动地呈现出来并发挥作用。
+
+12
+浏览器是如何渲染页面的？
+渲染的流程如下：
+1.解析HTML文件，创建DOM树。
+
+   自上而下，遇到任何样式（link、style）与脚本（script）都会阻塞（外部样式不阻塞后续外部脚本的加载）。
+
+2.解析CSS。优先级：浏览器默认设置<用户设置<外部样式<内联样式<HTML中的style样式；
+
+3.将CSS与DOM合并，构建渲染树（Render Tree）
+
+4.布局和绘制，重绘（repaint）和重排（reflow）
+
+
+
+</body>
+<script>
+    //基本数组去重
+    Array.prototype.unique=function(){
+        var result=[];
+        this.forEach(v=>{
+            if(result.indexOf(v)<0){
+                result.push(v);
+            }
+        })
+        return result;
+    }
+    //es6 Set
+    Array.prototype.unique=function(){
+        return [...Set(this)]
+    }
+
+
+    var z='http://www.runoob.com/jquery/misc-trim.html?channelid=12333&name=xiaoming&age=23';
+    function testLocation(){
+        var x=z.split('?'); 
+        if(x[0]==z){ return ''} 
+        var arr=x[1].split('&'); var obj={};       
+        for(var i = 0;i< arr.length;i++){
+            var arg = arr[i].split('=');
+            obj[arg[0]] = arg[1];
+        }
+        console.log(obj)
+        return obj;
+    }
+    var name=testLocation();
+    console.log(name.name)
+
+
+var add=function (x){ 
+    var sum=1;
+    var tem=function(x){
+        sum=sum+x; return tem;
+    }  
+    tem.toString=function(){
+         return sum;
+    }  
+    return tem;} 
+alert(add(1)(2)(3))
+</script>
+
+<script>
+
+var num = 0;
+var n = $("img[data-src]").length;
+$("img[data-src]").each(function(){
+	$(this).attr("src",$(this).attr("data-src"));
+	var s = new Image();
+	s.src = $(this).attr("data-src");
+	s.onload = function(){
+		num++;
+		var i = parseInt(num/n*100);
+		$("#laodPercent").html(i+"%");
+		if(num == n){
+			$("#loading").hide();
+		}
+	}
+})
+
+function loadImageAsync(url) {
+  return new Promise(function(resolve, reject) {
+    const image = new Image();
+
+    image.onload = function() {
+      resolve(image);
+    };
+
+    image.onerror = function() {
+      reject(new Error('Could not load image at ' + url));
+    };
+
+    image.src = url;
+  });
+}
+
+
+function loadImageAsync(path){
+    return new Promise((resolve,reject)=>{
+        const image= new image();
+        image.onload=resolve;
+        image.error=reject;
+        image.src=path;
+    })
+}
+
+
+
+
+
+</script>
+
+
+</html>

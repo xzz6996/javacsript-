@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>作用域 闭包</title>
+</head>
+<body>
+    1 全局作用域
+    全局变量是javascript里生命周期最长的变量，其将跨越整个程序,可以被程序里的任意函数访问。
+    在全局声明的变量都会在window对象下，都在全局作用域中，我们都可以通过window对象访问，也可以直接访问。
+    var name='zhangsan';
+    console.log(window.name);
+    console.log(name)
+
+    在函数中，没有使用var声明的变量都是全局变量
+    function aa(){
+        name='lisi';
+        alert(name)
+    }
+    console.log(name) //lisi   
+    2函数作用域(局部作用域)
+        局部作用域只能在函数中才能访问到，外部不能进行访问。
+        var name='zhangsan';
+        function aa(){
+            var name='lisi';
+            console.log(name) //lisi
+
+        }aa();
+        console.log(name) //zhangsan
+    3 闭包
+           定义在一个函数内部的函数
+    1 认识闭包
+
+</body>
+</html>

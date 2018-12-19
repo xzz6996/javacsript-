@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{margin: 0;padding: 0;border: none;text-align: center;}
+        .box{width: 1200px;margin: 0 auto;height: auto;}
+        h1,p{margin-bottom: 20px;}
+    </style>
+</head>
+<body>
+    <div class="box">
+        <h1>vue中的双向绑定实现原理？</h1>
+        <p>
+                vue.js 是采用数据劫持结合发布者-订阅者模式的方式，通过Object.defineProperty()来劫持各个属性的setter，getter，在数据变动时发布消息给订阅者，触发相应的监听回调。
+                具体步骤：
+                第一步：需要observe的数据对象进行递归遍历，包括子属性对象的属性，都加上 setter和getter
+                这样的话，给这个对象的某个值赋值，就会触发setter，那么就能监听到了数据变化
+                第二步：compile解析模板指令，将模板中的变量替换成数据，然后初始化渲染页面视图，并将每个指令对应的节点绑定更新函数，添加监听数据的订阅者，一旦数据有变动，收到通知，更新视图
+                第三步：Watcher订阅者是Observer和Compile之间通信的桥梁，主要做的事情是:
+                1、在自身实例化时往属性订阅器(dep)里面添加自己
+                2、自身必须有一个update()方法
+                3、待属性变动dep.notice()通知时，能调用自身的update()方法，并触发Compile中绑定的回调，则功成身退。
+                第四步：MVVM作为数据绑定的入口，整合Observer、Compile和Watcher三者，通过Observer来监听自己的model数据变化，通过Compile来解析编译模板指令，最终利用Watcher搭起Observer和Compile之间的通信桥梁，达到数据变化 -> 视图更新；视图交互变化(input) -> 数据model变更的双向绑定效果。
+                1.实现一个监听器Observer，用来劫持并监听所有属性，如果有变动的，就通知订阅者。
+
+                2.实现一个订阅者Watcher，可以收到属性的变化通知并执行相应的函数，从而更新视图。
+
+                3.实现一个解析器Compile，可以扫描和解析每个节点的相关指令，并根据初始化模板数据以及初始化相应的订阅器。
+        </p>
+        <h1>
+                vue-router有哪几种导航钩子？ 
+        </h1>
+        <p>
+                三种，
+                一种是全局导航钩子：router.beforeEach(to,from,next)，作用：跳转前进行判断拦截。
+                第二种：组件内的钩子；第三种：单独路由独享组件
+        </p>
+        <h1>
+            导航钩子有哪些
+        </h1>
+        <p>
+                a/全局钩子和组件内独享的钩子。
+                b/beforeRouteEnter、afterEnter、beforeRouterUpdate、beforeRouteLeave
+                参数：有to（去的那个路由）、from（离开的路由）、next（一定要用这个函数才能去到下一个路由，如果不用就拦截）最常用就这几种
+        </p>
+        <h1>
+            生命周期的理解
+        </h1>
+        <p>
+                答：总共分为8个阶段创建前/后，载入前/后，更新前/后，销毁前/后。
+                创建前/后： 在beforeCreated阶段，vue实例的挂载元素$el和数据对象data都为undefined，还未初始化。在created阶段，vue实例的数据对象data有了，$el还没有。
+                载入前/后：在beforeMount阶段，vue实例的$el和data都初始化了，但还是挂载之前为虚拟的dom节点，data.message还未替换。在mounted阶段，vue实例挂载完成，data.message成功渲染。
+                更新前/后：当data变化时，会触发beforeUpdate和updated方法。
+                销毁前/后：在执行destroy方法后，对data的改变不会再触发周期函数，说明此时vue实例已经解除了事件监听以及和dom的绑定，但是dom结构依然存在
+        </p>
+        <h1>
+                你觉得怎样的自定义组件是完善的？至少说出4点
+        </h1>
+        <p>
+                答：第一点、可以通用
+                第二点、代码尽量简洁
+                第三点、容易修改
+                第四点、功能要多一点 
+        </p>
+        <h1>
+                自定义指令的方法有哪些？它有哪些钩子函数？还有哪些钩子函数参数？
+        </h1>
+        <p>
+            全局自定义之类 在vue对象的directive方法里面有两个参数，一个是指令名称，另外一个是函数
+            局部自定义指令 directives
+            钩子函数 
+                bind：只调用一次，指令第一次绑定到元素时调用。在这里可以进行一次性的初始化设置。
+                inserted：被绑定元素插入父节点时调用 (仅保证父节点存在，但不一定已被插入文档中)。
+                update：所在组件的 VNode 更新时调用，但是可能发生在其子 VNode 更新之前。指令的值可能发生了改变，也可能没有。但是你可以通过比较更新前后的值来忽略不必要的模板更新 (详细的钩子函数参数见下).
+                componentUpdated：指令所在组件的 VNode 及其子 VNode 全部更新后调用。
+                unbind：只调用一次，指令与元素解绑时调用。
+            钩子函数参数 el binding
+        </p>
+        <h1>
+                vue-router是什么？它有哪些组件？
+        </h1>
+        <p>
+            router-link  router-view
+        </p>
+        <h1>
+                什么是RESTful API？怎么使用?
+        </h1>
+        <p>
+                是一个api的标准，无状态请求。请求的路由地址是固定的，
+                如果是tp5则先路由配置中把资源路由配置好。标准有：.get  .post .put .delete
+        </p>
+        <h1>
+                vue-loader是什么？使用它的用途有哪些？
+        </h1>
+        <p>
+            解析.vue文件的一个加载器，可以将template/style/script 转化为js模块
+            用途：js可以写es6、style样式可以scss或less、template可以加jade等
+        </p>
+        <h1>
+                call（） 和 apply（） 的作用和区别？
+        </h1>
+        <p>
+                答：调用一个对象的一个方法，用另一个对象替换当前对象。               
+                例：blackCat.say.call(whiteDog)               
+                区别：call(thisObj，arg1,arg2)  
+                      Apply(thisObj，[arg1,arg2])
+        </p>
+        <h1>
+            axios
+        </h1>
+        <p>
+                Axios 是一个基于 promise 的 HTTP 库，可以用在浏览器和 node.js 中。
+                特点 1从浏览器中创建 XMLHttpRequests
+                2从 node.js 创建 http 请求
+                3支持 Promise API
+                4拦截请求和响应
+                5转换请求数据和响应数据
+                6取消请求
+                7自动转换 JSON 数据
+                8客户端支持防御 XSRF
+                https://www.kancloud.cn/yunye/axios/234845
+        </p>
+        <h1>
+                JSON.parse() 方法用于将一个 JSON 字符串转换为对象。
+                JSON.stringify() 将对象转为为JAON字符串
+        </h1>
+        <p></p>	    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </div> 
+</body>
+</html>

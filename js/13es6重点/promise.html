@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    promise 解决异步编程的一种解决方案
+    a.js -->  b.js   a执行完执行b
+</body>
+<script>
+// 图片加载完后 加载页面
+
+{     
+    function loadImg(src){
+        return new Promise((resolve,reject)=>{
+            let img=new Image();
+            img.src=src;
+            img.onload=function(){
+                resolve(img)
+            }
+            img.onerror=function(err){
+                reject(err)
+            }
+        })
+    }
+    function showImg(imgs){
+        imgs.forEach(element => {
+            document.body.appendChild(element)
+        });
+    }
+    Promise
+    .all([
+      loadImg('https://ss2.baidu.com/6ONYsjip0QIZ8tyhnq/it/u=56440742,2284854396&fm=173&app=25&f=JPEG?w=218&h=146&s=3A93E500D78E3FEF4CC931160100F0C0'),
+      loadImg('https://ss2.baidu.com/6ONYsjip0QIZ8tyhnq/it/u=3729059801,675918142&fm=173&app=25&f=JPEG?w=218&h=146&s=C460BA460A658F5300C1AC9303001087'),
+      loadImg('https://ss2.baidu.com/6ONYsjip0QIZ8tyhnq/it/u=380050811,4168152650&fm=173&app=25&f=JPEG?w=218&h=146&s=ADAEE71743607D0B4EF2C77B0300F07B')  
+    ])
+    .then(showImg)
+}
+// 有一个图片加载完就添加到页面
+{
+    Promise.race([ loadImg('https://ss2.baidu.com/6ONYsjip0QIZ8tyhnq/it/u=56440742,2284854396&fm=173&app=25&f=JPEG?w=218&h=146&s=3A93E500D78E3FEF4CC931160100F0C0')]).then(showImg)
+}
+</script>
+<script>
+    const myHttpClient=url=>{
+        return new Promise((resolve,reject)=>{
+            let client=new XMLHttpRequest();
+            client.open('get',url);
+            client.onreadystatechange=handler();
+            client.responseType="json"; 
+            client.setRequestHeader('Accept','application/json');
+            client.send();    
+            function handler(){
+                if(this.readyState!==4){
+                    return
+                }    
+                if(this.status===200){
+                    resolve(this.response)
+                }else{
+                    reject(new Error(this.statusText))
+                }
+            }
+        })
+    }
+    myHttpClient('https://www.baidu.com').then(res=>{
+        console.log(res)
+    }).catch(err=>{
+        console.log(err)
+    })
+</script>  	
+</html>

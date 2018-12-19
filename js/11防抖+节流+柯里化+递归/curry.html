@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>柯里化</title>
+</head>
+<body>
+    柯里化是把接受多个参数的函数变成接受一个单一参数的函数，并且返回一个新函数，这个新函数能够接受原函数的参数。
+    
+    函数柯里化的主要功能就是 提供强大的动态函数。
+
+
+</body>
+<script>
+    {
+        function adder(num){
+            return function(x){  //使用闭包返回了一个函数
+                return num+x;
+            }
+    }
+        var add=adder(6);
+        add(6);//12
+    }
+    { //创建柯里化函数的通用方式
+        function curry(fn){
+            var args=Array.prototype.slice.call(arguments,1);
+            return function(){
+                var innerArgs=Array.prototype.slice.call(arguments);
+                var finalArgs=args.concat(innerArgs);return
+                fn.apply(null,finalArgs);
+            }
+        }
+
+        function add(x,y){
+            return x+y;
+        }
+        var c=curry(add,5);
+        c(6);//11
+    }    
+</script>
+</html>

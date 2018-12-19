@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+        generator（生成器）是ES6标准引入的新的数据类型
+</body>
+<script>
+{
+    //generator
+    let tell=function* (){
+        yield 'a';
+        yield 'b';
+        return c
+    }
+    let k=tell();
+    console.log(k.next())
+}
+
+//状态机
+{
+    let state=function* (){
+        while(1){
+            yield 'A';
+            yield 'B';
+            yield 'C';
+        }
+    }
+    let status=state()
+    console.log(status.next(),status.next(),status.next(),status.next(),status.next());
+}
+
+
+{
+    let state=async function (){
+        while(1){
+            await 'A';
+            await 'B';
+            await 'C';
+        }
+    }
+    let status=state()
+    console.log(status.next(),status.next(),status.next(),status.next(),status.next());
+}
+
+
+//实例 抽奖
+{
+    let draw=function(count){
+        console.log(`剩余${count}次`)
+    }
+    let residue=function* (count){
+        while(count>0){
+            count--;
+            yield draw(count);
+        }
+    }
+    let sss=residue(5); //默认5次机会
+    btn.textContent="抽奖";
+    let btn=document.createElement('Button');
+    btn.id="start";
+    document.body.appendChild(btn);
+    document.getElementById('start').addEventListener('click',function(){
+        sss.next();
+    },false)
+}
+
+// 长轮询
+{
+    let ajax=function* (){
+        yield new Promise((resolve,reject)=>{
+            setTimeout(function(){
+                resolve({code:0})
+            },200)
+        })
+    }
+    let pull=function(){
+        let gen=ajax();
+        let start=gen.next();
+        start.value.then(r=>{
+            if(r.code!=0){
+                setTimeout(function(){
+                    console.log('wait')
+                    pull(); 
+                })                    
+            }else{
+                console.log(r)
+            }
+        })
+    }
+}
+
+
+</script>
+</html>

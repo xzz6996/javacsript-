@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <ul><li>123</li><li>456</li><li>789</li></ul>
+    <div class="parent">
+        <div class="del">等着被删除</div>
+    </div>
+    <p class="p1"><span></span></p>
+    <input type="file" onchange="previewFile()">
+    <img src="" height="200">
+</body>
+<script>
+function previewFile() {
+  var preview = document.querySelector('img');
+  var file    = document.querySelector('input[type=file]').files[0];
+  console.log(document.querySelector('input[type=file]').files)
+  var reader  = new FileReader();
+  console.log(reader)
+  reader.addEventListener('load', function () {
+    preview.src = reader.result;
+  }, false);
+
+  if (file) {
+    reader.readAsDataURL(file);
+  }
+}
+
+</script>
+<script>
+var ul=document.querySelector('ul');
+
+console.log('nodeName',ul.nodeName,'nodeValue',ul.nodeValue,'childNodes',ul.childNodes)
+
+var elm=document.createElement('p');
+elm.id='xxx';elm.innerHTML="xxx";
+elm.style.color="red";elm.setAttribute('name','xzz')
+document.body.appendChild(elm);
+
+var p1=document.querySelector(".p1");
+p1.insertBefore(elm,p1.firstChild)
+
+var text=document.createTextNode("我是文本节点");
+document.body.appendChild(text);
+
+
+var fragment=document.createDocumentFragment();
+
+
+
+var parent=document.querySelector(".parent");
+var elms=document.createElement('p');elms.innerHTML="appendChild";
+parent.appendChild(elms)
+
+var del=document.querySelector(".del");
+parent.removeChild(del);
+
+
+
+</script>
+</html>

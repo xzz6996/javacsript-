@@ -1,0 +1,22 @@
+
+config/index.js
+
+
+ proxyTable: {
+     '/api':{
+         target:"www.example.com", //将www.example.com映射为/api
+         secure: false,  // 如果是https接口，需要配置这个参数
+         changeOrigin: true,  //是否跨域
+         pathRewrite: {
+             '^/apis': ''   //需要rewrite的,
+         }    
+     }
+ } 
+
+
+
+
+因为dev开发的时候是node代理，没有跨域，打包后浏览器环境有跨域
+1.这个是跨域，表示只支持 GET HEAD OPTIONS 方法 ，不支持 post
+2.如果想要支持post，需要在服务端修改响应头 Allow
+3.可以的话客户端可以改成get

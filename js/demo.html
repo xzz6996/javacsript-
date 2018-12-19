@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        #drag{width: 300px;height: 300px;background: blanchedalmond;}
+    </style>
+</head>
+<body>
+    <div>
+           <p>点击</p>
+    </div>
+    <div draggable="true" id="drag">
+
+    </div>	
+    <img src="https://xzz6996.github.io/wuyou/a.jpg" alt="" id="img">
+</body>
+<script>
+    var img=document.getElementById('img');
+    img.addEventListener('load',function(e){
+        console.log(e)
+    })
+    
+    
+</script>
+<script>
+    var dragDiv=document.getElementById('drag');
+    dragDiv.addEventListener('dragstart',function(e){
+        this.style.background="red";
+    })
+    dragDiv.addEventListener('dragend',function(e){
+        this.style.background="";
+    })
+</script>
+<script>
+   var phases = {
+  1: '捕获',
+  2: '目标',
+  3: '冒泡'
+};
+
+var div = document.querySelector('div');
+var p = document.querySelector('p');
+
+div.addEventListener('click', callback, true);
+p.addEventListener('click', callback, true);
+div.addEventListener('click', callback, false);
+p.addEventListener('click', callback, false);
+
+function callback(event) {
+  console.log(event)
+  var tag = event.currentTarget.tagName;
+  var phase = phases[event.eventPhase];
+  console.log("Tag: '" + tag + "'. EventPhase: '" + phase + "'");
+}
+
+    
+</script>
+</html>

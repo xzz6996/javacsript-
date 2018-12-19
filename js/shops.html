@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <style>
+        *{list-style: none;margin: 0;border: 0;padding: 0;}
+    </style>
+</head>
+<body>
+    <div id="app">
+        <div class="title">
+            <label for="">全选</label>
+            <input type="radio" >
+            <div>商品</div>
+            <div>数量</div>
+            <div>单价</div>
+            <div>金额</div>
+            <div>可操作</div>
+        </div>
+        <div class="content">
+            <ul>
+                <li>1</li>
+                <li>2</li>
+                <li>3</li>
+                <li>45</li>
+                <li>5</li>
+            </ul>
+        </div>
+    </div>
+</body>
+<script>
+   var app = new Vue({
+    el: '#app',
+    data: {
+        message: 'Hello Vue!'
+    }
+})
+    var xx=document.querySelector('.content ul')
+    xx.addEventListener('click',function(e){
+        console.log(e)
+        if(e.target||e.target.tagName.toLowerCase=='li'){
+            alert(e.target.innerHTML)
+         }
+    })
+</script>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    原型链  __proto__是任何对象都有的属性，js里万物皆对象,形成了一条具有__proto__的链条 这就是所谓的原型链，如果我们的递归去访问__proto__，最终值为null
+
+    当js去访问对象的属性时，会现在对象本身查找，找不到就会去原型链上找，但不会从prototype上找
+</body>
+<script>
+    //任何对象都有一个__proto__属性 (隐式原型)
+    //所有函数都具有 显示原型 prototype (仅限函数)
+
+    function Person(){}
+    var person1=new Person();
+
+//在默认情况下 所有的原型对象都会自动获得一个constructor(构造函数)属性 这个属性是一个指针，指向prototype属性所在的构造函数
+
+    //实例的构造函数属性(constructor)指向构造函数本身
+    person1.constructor===Person
+
+    //实例的__proto__(隐式原型)==构造函数的prototype(原型对象)
+    person1.__proto__===Person.prototype
+
+
+//每个函数对象都有一个prototype，这个属性指向自己的原型对象.
+//原型对象是构造函数的一个实例
+    Person.prototype.constructor===Person
+
+    person1.__proto__.constructor===Person
+
+
+
+    Person.__proto__===Function.prototype // Person的构造函数是 Function
+    Object.__proto__===Function.prototype
+
+
+    Person.prototype.__proto__===Object.prototype //Person.prototype 是普通对象
+
+
+    Object.prototype.__proto__===null
+
+
+//所有构造器的__proto__都是Function.prototype (Empty function 空函数)
+    Function.prototype.__proto__===Object.prototype
+
+ 
+   // Function.prototype是唯一一个type of  xxx.prototype为 function的prototype
+</script> 
+</html>

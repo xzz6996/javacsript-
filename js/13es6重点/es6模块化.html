@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>module</title>
+</head>
+<body>
+es6模块化
+
+引入 import 
+导出 export
+</body>
+<script>
+{
+    //导出
+export let A=123
+export function aa(){}
+export class Hello{}
+
+    //引入
+import {A,aa,Hello} from '' 
+
+import * as type from ''
+
+
+}
+  
+
+{
+
+   //导出
+let A=123
+function aa(){}
+class Hello{}
+export default{
+    A,aa,hello
+}
+
+//引入
+import ss from ''
+console.log(ss.A)
+
+
+
+}
+
+
+
+
+
+</script>
+</html>

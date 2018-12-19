@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+        1实现一个订阅器Observer,用来劫持并监听数据,如果有变动就通知订阅者Watcher;
+        (消息订阅器Dep来专门收集这些订阅者，然后在监听器Observer和订阅者Watcher之间进行统一管理)
+        2实现一个订阅者Watcher,可以接受到属性的变化并执行相应的函数,并更新视图;
+        3实现一个编译器Compile,可以扫描和解析每个节点的相关指令,并根据初始化模版以及初始化相应的订阅器;
+</body>
+<script>
+{
+    var book={};
+    var name='';
+    Object.defineProperty(book,'name',{
+        get(){
+            return  'get'+'name';
+        },
+        set(value){
+            name=value;
+            console.log('set'+value)
+        }
+    })
+    console.log(book.name)
+    book.name="xzz";
+}
+{
+    // 1 实现一个Observer,核心方法就是Object.defineProperty()。如果对所有属性就是监听，可以使用递归遍历所有的属性值，并对其进行Object.defineProperty()
+    function observe(data){
+        if(!data||typeof data!=='object'){
+            return
+        }
+        Object.keys(data).forEach(key=>{
+            defineReactive(data,key,data[key])
+        })
+    }
+    function defineReactive(data,key,val){
+        observe(val);//递归遍历所有属性
+        Object.defineProperty(data,key,{
+            enumerable:true, //可枚举
+            configurable:true, //可以被改变
+            get(){
+                return val
+            },
+            set(newVal){
+                val=newVal
+                console.log('属性'+key+'已经被监听了,现在值为'+newVal.toString()+'')
+            }
+        })
+    }
+    var library={book1:{name:""},book2:""}
+    observe(library);
+    library.book1.name="book1";
+    library.book2="book2"
+}  
+{//需要创建一个可以容纳订阅者的消息订阅器Dep，订阅器Dep主要负责收集订阅者，然后再属性变化的时候执行对应订阅者的更新函数
+    function Dep(){
+        this.subs=[];
+    }
+    Dep.prototype={
+        addSub(sub){
+            this.subs.push(sub)
+        },
+        notify(){
+            this.subs.forEach(item=>{
+                item.updata();
+            })
+        }
+    }
+    function defineReactive(data,key,val){
+        observe(val);//递归遍历所有属性
+        var dep=new Dep();
+        Object.defineProperty(data,key,{
+            enumerable:true, //可枚举
+            configurable:true, //可以被改变
+            get(){
+               if(是否需要添加订阅者){
+                dep.addSub(watcher)
+               }
+            },
+            set(newVal){
+               if(val===newVal){
+                   return
+               }
+               val=newVal;
+                console.log('属性'+key+'已经被监听了,现在值为'+newVal.toString()+'')
+                dep.notify(); //如果数据变化 通知所有订阅者
+            }
+        })
+    }
+}
+{
+//2 实现watcher
+
+
+}
+</script>
+</html>

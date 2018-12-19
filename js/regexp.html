@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title></title>
+</head>
+<body>
+    new RegExp(pattern,attributes)
+     参数pattern是一个字符串时，指定了正则表达式的模式或者其他正则表达式
+     参数attributes是一个可选的修饰性标志，
+     如果pattern是一个正则表达式，则不需要参数attributes
+</body>
+<script>
+// 使用正则表达式
+{   //匹配字符串中的第一次小写字母a
+    var r =new RegExp('a');
+    var s="ajacvvv";
+    console.log(s.match(r));//["a", index: 0, input: "ajacvvv", groups: undefined] 
+}
+{ //匹配字符串中的所有字母a 并且不区分大小写 可以使用修饰符 g i
+    var r=new RegExp('a','gi');  // g 全局  i 不区分大小写
+    var s='ddawfawfaAA';
+    console.log(s.match(r)); //["a", "a", "a", "A", "A"]
+}
+{ //匹配字符串每个单词的首字母
+    var r=new RegExp('\\b\\w','gi');
+    var s='javascript Java';
+    console.log(s.match(r)); //["j", "J"]
+} //双斜杠表示斜杠本身的意思       
+</script>
+<script>
+//使用正则直接量
+{
+    var r=/\b\w/gi;
+    var s='javascript Jxxxx';
+    console.log(s.match(r));//["j", "J"]
+}
+// javascript 正则表达式支持 g(全局匹配) i(不区分大小写) m(定义多行字符串匹配)这3个标志修饰符
+//   \b 表示任意ASCII字符 \w表示单词的边界
+{ //exec(string) 检索字符串中指定的值，返回找到的值，并确定其位置
+  // 返回一个数组  || null  
+  //还会返回 index匹配文本的第一个字符的位置  input存放检索的字符串
+    var r=/\b/gi;
+    var s="javascript";
+    console.log(r.exec(s));// ["", index: 0, input: "javascript", groups: undefined]
+}
+{ //test(string) 检测一个字符串是否符合指定匹配模式
+    var r=/javascriPT/gi;
+    var s="Javascript";
+    console.log(r.test(s));//true
+}
+</script>
+
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>javascript闭包(closule)</title>
+    <style>
+    body {
+        font-family: Helvetica, Arial, sans-serif;
+        font-size: 12px;
+    }
+    h1 {
+        font-size: 1.5em;
+    }
+    h2 {
+        font-size: 1.2em;
+    }
+    </style>
+</head>
+<body>
+    能够读取其他函数内部的函数。
+    闭包是基于正常的垃圾回收机制下的。一般来说 一个函数执行完之后，函数内部的变量会被释放，被垃圾回收机制回收。闭包是利用了个技巧，让作用域里的变量，在函数执行之后不被释放。<br>
+    点击到某一个按钮就会输出第几个被点击到了语句
+    <ul class="aa">
+        <li>1111</li>
+        <li>22222</li>
+        <li>33333</li>
+    </ul>
+    <p>Some paragraph text</p>
+    <h1>some heading 1 text</h1>
+    <h2>some heading 2 text</h2>
+
+    <a href="#" id='size-12' >12</a>
+    <a href="#" id='size-14' >14</a>
+    <a href="#" id='size-16' >16</a>
+</body>
+<script>
+    {
+        function foo(x){
+        var tem=3;
+        return function(y){
+            alert(x+y+tem)
+        }
+    }
+    var bar=foo(1);//闭包形成 
+   // bar(10);//14
+   // bar(11);//15
+    }
+    {
+        var btn=document.querySelectorAll("li"),btnLength=btn.length;
+            for(var i=0;i<btnLength;i++){
+                (function(j){
+                    btn[j].onclick=function(){
+                        console.log("当前第"+j+"个")
+                    }
+                }(i))
+            }
+    }
+    {
+        function makeSize(size){
+            return function(){
+                document.body.style.fontSize=size+'px';
+            }          
+        }
+        var size12=makeSize(12);
+        document.getElementById('size-12').onclick = size12;
+        var size14=makeSize(14);
+        document.getElementById('size-14').onclick = size14;
+        var size16=makeSize(16);
+        document.getElementById('size-16').onclick = size16;
+    }
+</script>
+<script>
+//IIFE模式 ：引入一个新的作用域 
+(function(){
+
+}())
+
+</script>
+</html>

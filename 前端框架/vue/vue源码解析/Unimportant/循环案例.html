@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0px;
+            padding: 0px;
+            text-decoration: none;
+            /* 去除a标签下划线 */
+        }
+        ul,li,ol{
+            list-style:none;
+        }
+        .c{
+            width: 600px;
+            height: 400px;
+            border:1px solid red;
+            margin:0 auto;
+        }
+        .top{
+            width: 600px;
+            height: 50px;
+            background: #fff;
+        }
+        .top li{
+            width: 200px;
+            height: 50px;
+            float: left;
+            font-size: 20px;
+            text-align: center;
+            line-height: 50px;
+            color:black;
+            cursor:pointer;
+        }
+        .top li:nth-child(1){
+            color:red;
+        }
+        .bottom{
+            width: 600px;
+            height:350px;
+            overflow: hidden;
+        }
+        .bottom li{
+            width: 600px;
+            height:350px;
+        }
+        .bottom li a{
+            width: 600px;
+            height:350px;
+        }
+        .bottom li a img{
+            width: 600px;
+            height:350px;
+        }
+    </style>
+</head>
+<body>
+<div class="c">
+    <ul class="top">
+        <li>第一项</li>
+        <li>第二项</li>
+        <li>第三项</li>
+    </ul>
+    <ul class="bottom">
+        <li><a href=""><img src="../js/this.png" alt=""></a></li>
+        <li><a href=""><img src="" alt=""></a></li>
+        <li><a href=""><img src="../js/this.png" alt=""></a></li>
+    </ul>
+
+</div>
+</body>
+<script>
+    var btns=document.querySelectorAll(".top li");
+    var cons=document.querySelectorAll(".bottom li");
+    var conter=document.querySelector(".c");
+    Array.from(btns).forEach(function (ele,index) {
+        ele.onclick=function () {
+            num=index;
+            for(var i=0;i<btns.length;i++){
+                btns[i].style.color="black";
+                cons[i].style.display="none";
+            }
+            this.style.color="red";
+            cons[index].style.display="block";
+        }
+    })
+    var num=0;
+    var t1=setInterval(move,800);
+    function move() {
+        num++;
+        if(num==btns.length){
+            num=0;
+        }
+        for(var i=0;i<btns.length;i++){
+            btns[i].style.color="black";
+            cons[i].style.display="none";
+        }
+        btns[num].style.color="red";
+        cons[num].style.display="block";
+    }
+    conter.onmouseover=function () {
+        clearInterval(t1);
+    }
+    conter.onmouseout=function () {
+        t1=setInterval(move,800);
+    }
+</script>
+
+</html>

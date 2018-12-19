@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+    //参数默认值
+{
+    function f(x,y='world'){console.log(x,y)} 
+    f('hello') //hello world
+    f('hello','kill') //hello kill
+}
+    //作用域
+{
+    let x='aa';
+    function test(x,y=x){console.log(x,y)}
+    test('kill')  // kill kill
+    function test1(c,y=x){console.log(c,y)}
+    test1('kill') //kill aa
+}
+    //rest参数  ...arg 把离散值转化为数组
+{
+    function test3(...arg){
+        for(let v of arg){
+            console.log(v)
+        }
+    } test3(1,2,3,4,5)
+}
+    //扩展运算符 ...[]  数组转化为离散值
+{
+    console.log(...[1,2,4])  // 1 2 4
+}
+
+    //箭头函数
+{
+    let arrow = v => v*2;
+    function arrow(v){
+        return v*2
+    }
+}
+
+</script>
+</html>
