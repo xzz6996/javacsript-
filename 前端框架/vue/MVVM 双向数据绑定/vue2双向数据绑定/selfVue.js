@@ -3,21 +3,23 @@ function SelfVue(options){
     this.el=options.el;
     Observer(this.data);
     var _this=this;
-    Object.keys(this.data).forEach(function(val){
-        _this.proxyPath(val);
+    Object.keys(this.data).forEach(function(key){
+        _this.proxyPath(key);
     })
+    new Compile(options.el, this.vm);
+    return this;
 }
 SelfVue.prototype={
-    proxyPath:function(val){
-        
-        Object.defineProperty(this,val,{
-            configurable:true,
-            enumerable:false,
-            get:function(){
-
+    proxyPath:function(key){
+        var _this=this;
+        Object.defineProperty(this,key,{
+            enumerable: false,
+            configurable: true,
+            get:function getter(){
+                return this.data[key]
             },
-            set:function(){
-
+            set:function setter(newVal){
+                this.data[key]=newVal;
             }
         })
     }

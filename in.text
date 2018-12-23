@@ -1,0 +1,93 @@
+1浏览器内核Blink:Chrome/Operct;Trident:ie;Gecko:firefox;webkit:safari：
+2 创建节点 createElement() createTextNode() createFrangment()
+  查找节点 getElementById() getElementName() getElementByTagName()
+  添加节点 appendChild()删除removeChild()替换replaceChild()插入insertBefore()
+3 this 
+    构造函数 
+    function A(){ this.x=1} var a=new A(); a.x;//1
+    函数的调用
+    var x=1; function a(){ console.log(this.x)}; //1
+    apply(thisObj,数组)/call(thisObj,多个参数)
+    对象的调用
+
+4 js检测一个变量是否为string
+    typeOf a ==='string'     a.constructor === string
+5 检测数据类型
+    typeOf 主要对于原始值有效，但对于array object null都返回object
+    constructor 对于undefiend null都会抛出异常
+    instanceof 判断一个变量是否属于另一个对象的实例
+6 闭包 
+    函数a内部有一个返回的函数b，函数b可以访问到函数a内部的变量，当函数被执行的时候，闭包形成。
+    会造成内存泄漏。
+    垃圾回收机制，垃圾回收器会定期检测那些不使用的变量进行回收。
+        标记清除 ， 引用计数
+7跨域 由于浏览器的同源策略，凡是url的协议 域名 端口 不一致都是跨域
+    办法：nginx代理 后端cors 前端jsonp
+8 数组去重
+ function a(arr){return Array.form(new Set(arr))}
+ function unique(arr){
+     if(!Array.isAyyar(arr)){return}
+     var a=[];
+     for(var i=0;i<arr.length;i++){
+         if(a.indexOf(arr[i])==-1){
+             a.push(arr[i]);
+         }
+     }
+     return a;
+ }
+9 判断一个字符串中出现次数最多的字符，统计这个次数
+var str = 'qweqrtyuiqqqwrtyudfgerqtywer';
+    var result = maxN(str);
+    function maxN(str) {
+        //定义一个json对象用于保存str的每一项以及出现次数。
+        var json = {};
+        //遍历str,循环其中的每一个字符，将某个字符的值及出现的个数拿出来作为json的key和value
+        for(var i=0;i<str.length;i++){
+            //判断json中是否有当前str的值
+            if(!json[str.charAt(i)]){
+                //如果不存在 就将当前值添加到json中去，并设置1
+                json[str.charAt(i)] = 1;
+            } else {
+                //如果存在的话就让数组中已有的当前值的value值++；
+                json[str.charAt(i)] ++;
+            }
+        }
+        //存储出现次数最多的值和次数
+        var number = '';
+        var num = 0;
+        //遍历json  使用打擂算法统计需要的值
+        for(var j in json){
+            //如果当前项大于下一项
+            if (json[j]>num) {
+                //就让当前值更改为出现最多次数的值
+                num = json[j];
+                number = j;
+            }
+        }
+        return {
+            number:number,
+            num:num
+        }
+    }
+    document.write('该字符串出现'+ result.num+'次的'+ result.number);
+
+10 块元素 p div ul li h1 行元素 a img span input select button 空元素 br hr
+11 去除字符串空白 
+   去除2边，不去除中间    a.trim()
+    去除左边/^\s*/g   去除右边 /\s$*/g 去除2边，不去除中间  /^\s*/g|/\s$*/g
+12web前端开发，如何提高页面性能优化
+  减少http请求,减少dom操作 背景图片 精简js css
+13浏览器是如何渲染页面的？
+  .解析HTML文件，创建DOM树。解析CSS，创建css规则树。
+   将css规则树与DOM合并，构建渲染树（Render Tree）
+   遍历render树，布局和绘制，
+   //重绘（repaint 重画某一部分）和回流（reflow 重新渲染）
+14 常见兼容性问题？
+   浏览器默认的margin和padding不同
+   浮动ie产生的双倍距离
+   css3不兼容 
+   图片之间也有间隙
+   png24位的图片在iE6浏览器上出现背景，解决方案是做成PNG8
+   
+
+

@@ -1,0 +1,111 @@
+8js实现继承
+    1、prototype原型链方式：
+        function teacher(name){
+            this.name = name;
+        }
+        teacher.prototype.sayName = function(){
+            console.log("name is "+this.name);
+        }
+        var teacher1 = new teacher("xiaoming");
+        teacher1.sayName();
+        
+        function student(name){
+            this.name = name;
+        }
+        student.prototype = new teacher()
+        var student1 = new student("xiaolan");
+        student1.sayName();
+        //  name is xiaoming
+        //  name is xiaolan
+        2、call()/apply()方法
+        function teacher(name,age){
+        this.name = name;
+        this.age = age;
+        this.sayhi = function(){
+        alert('name:'+name+", age:"+age);
+        }
+        }
+        function student(){
+        var args = arguments;
+        teacher.call(this,args[0],args[1]);
+        // teacher.apply(this,arguments);
+        }
+        var teacher1 = new teacher('xiaoming',23);
+        teacher1.sayhi();
+
+        var student1 = new student('xiaolan',12);
+        student1.sayhi();
+
+        // alert: name:xiaoming, age:23
+        // alert: name:xiaolan, age:12
+
+        3、混合方法【prototype,call/apply】
+        function teacher(name,age){
+        this.name = name;
+        this.age = age;
+        }
+        teacher.prototype.sayName = function(){
+        console.log('name:'+this.name);
+        }
+        teacher.prototype.sayAge = function(){
+        console.log('age:'+this.age);
+        }
+
+        function student(){
+        var args = arguments;
+        teacher.call(this,args[0],args[1]);
+        }
+        student.prototype = new teacher();
+
+        var student1 = new student('xiaolin',23);
+        student1.sayName();
+        student1.sayAge();
+        // name:xiaolin
+        // age:23
+        4、对象冒充
+        function Person(name,age){
+        this.name = name;
+        this.age = age;
+        this.show = function(){
+        console.log(this.name+", "+this.age);
+        }
+        }
+
+        function Student(name,age){
+        this.student = Person; //将Person类的构造函数赋值给this.student
+        this.student(name,age); //js中实际上是通过对象冒充来实现继承的
+        delete this.student; //移除对Person的引用
+        }
+
+        var s = new Student("小明",17);
+        s.show();
+
+        var p = new Person("小花",18);
+        p.show();
+        // 小明, 17
+        // 小花, 18
+
+
+
+ *class语法相对原型、构造函数、继承更接近传统语法，它的写法能够让对象原型的写法更加清晰、面向对象编程的语法更加通俗
+这是class的具体用法
+
+class Animal {
+    constructor () {
+        this.type = 'animal'
+    }
+    says(say) {
+        console.log(this.type + 'says' + say)
+    }
+}
+ let animal = new Animal()
+ animal.says('hello') // animal says hello
+
+ class Cat extends Animal {
+     constructor() {
+         super()
+         this.type = 'cat'
+     }
+ }
+ let cat = new Cat()
+ cat.says('hello') // cat says hello
